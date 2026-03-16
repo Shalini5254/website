@@ -4,7 +4,7 @@ reviewers:
 title: Pods
 api_metadata:
 - apiVersion: "v1"
-  kind: "Pod"
+  kind: "Pod" 
 content_type: concept
 weight: 10
 no_list: true
