@@ -203,8 +203,72 @@ spec:
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
     # The pod template ends here
+## Example: Deploying an Nginx Pod
+The following example demonstrates how to create a simple Pod running an Nginx container.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-example
+  labels:
+    app: web-server
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+```
+### Explanation of fields
+
+- **apiVersion**  
+  Specifies the Kubernetes API version used to create the object.
+
+- **kind**  
+  Defines the type of Kubernetes resource. In this example it is a Pod.
+
+- **metadata**  
+  Provides identifying information such as the Pod name and labels.
+
+- **labels**  
+  Key-value metadata used to organize and select resources.
+
+- **spec**  
+  Defines the desired state of the Pod.
+
+- **containers**  
+  Lists the containers that will run inside the Pod.
+
+- **image**  
+  The container image used to run the application.
+
+- **containerPort**  
+  The network port exposed by the container.
+### How to run this example
+
+Save the configuration as a file named:
+
+```
+nginx-pod.yaml
 ```
 
+Apply the configuration to your Kubernetes cluster:
+
+```bash
+kubectl apply -f nginx-pod.yaml
+```
+
+Verify the Pod is running:
+
+```bash
+kubectl get pods
+```
+
+Expected output:
+
+```
+nginx-example   Running
+```
 Modifying the pod template or switching to a new pod template has no direct effect
 on the Pods that already exist. If you change the pod template for a workload
 resource, that resource needs to create replacement Pods that use the updated template.
@@ -523,3 +587,4 @@ you can read about the prior art, including:
 * [Marathon](https://github.com/d2iq-archive/marathon)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+  
