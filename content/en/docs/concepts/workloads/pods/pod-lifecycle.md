@@ -137,6 +137,68 @@ the exit statuses of the pod containers) before their deletion from the API serv
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
+## Example: Pod lifecycle demonstration
+
+The following example shows how a Pod progresses through its lifecycle phases.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+```
+### Deploy the Pod
+
+Save the configuration as:
+
+```
+lifecycle-pod.yaml
+```
+
+Create the Pod:
+
+```bash
+kubectl apply -f lifecycle-pod.yaml
+```
+
+Check Pod status:
+
+```bash
+kubectl get pods
+```
+### Observing lifecycle states
+
+You can observe the Pod lifecycle phases using the following command:
+
+```bash
+kubectl get pod lifecycle-demo -w
+```
+
+The `-w` flag allows you to watch the Pod status as it transitions between phases such as:
+
+- Pending
+- Running
+- Succeeded
+- Failed
+  ### Troubleshooting Pod lifecycle issues
+
+If the Pod does not transition to the Running state, inspect the Pod details:
+
+```bash
+kubectl describe pod lifecycle-demo
+```
+
+To check container logs:
+
+```bash
+kubectl logs lifecycle-demo
+```
+
+These commands help identify issues related to image pulling, container startup, or scheduling.
 
 ## Container states
 
